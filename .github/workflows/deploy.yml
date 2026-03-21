@@ -1,0 +1,51 @@
+name: Deploy Strapi to EC2
+
+on:
+  push:
+    branches:
+      - production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+
+            cd /home/ubuntu
+
+            if [ ! -d "slashifytech-strapi-manager" ]; then
+              git clone https://github.com/Slashifytech/slashifytech-strapi-manager.git
+            fi
+
+            cd slashifytech-strapi-manager 
+
+            git fetch origin
+            git checkout production
+            git pull origin production
+
+            echo "Installing dependencies..."
+            npm install
+
+            echo "Building Strapi admin panel..."
+            npm run build
+
+            echo "Restarting PM2 process..."
+
+            if pm2 list | grep -q "strapi"; then
+              pm2 restart strapi
+            else
+              pm2 start npm --name strapi -- run start
+            fi
+
+            pm2 save
