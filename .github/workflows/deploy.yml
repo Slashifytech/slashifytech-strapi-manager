@@ -32,6 +32,7 @@ jobs:
 
             git fetch origin
             git checkout production
+            git stash
             git pull origin production
 
             echo "Installing dependencies..."
