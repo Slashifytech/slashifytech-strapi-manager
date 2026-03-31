@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "case_study_cards",
+  "info": {
+    "singularName": "case-study-card",
+    "pluralName": "case-study-cards",
+    "displayName": "Case Study Card"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "caseStudyCards": {
+      "type": "json"
+    }
+  }
+}
