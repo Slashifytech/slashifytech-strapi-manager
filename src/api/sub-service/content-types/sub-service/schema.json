@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sub_services",
+  "info": {
+    "singularName": "sub-service",
+    "pluralName": "sub-services",
+    "displayName": "SubService"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "",
+      "required": true
+    },
+    "MasterContent": {
+      "type": "json"
+    }
+  }
+}

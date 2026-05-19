@@ -797,6 +797,36 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiSubServiceSubService extends Struct.CollectionTypeSchema {
+  collectionName: 'sub_services';
+  info: {
+    displayName: 'SubService';
+    pluralName: 'sub-services';
+    singularName: 'sub-service';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::sub-service.sub-service'
+    > &
+      Schema.Attribute.Private;
+    MasterContent: Schema.Attribute.JSON;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<''> & Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1320,6 +1350,7 @@ declare module '@strapi/strapi' {
       'api::global.global': ApiGlobalGlobal;
       'api::project.project': ApiProjectProject;
       'api::service.service': ApiServiceService;
+      'api::sub-service.sub-service': ApiSubServiceSubService;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
