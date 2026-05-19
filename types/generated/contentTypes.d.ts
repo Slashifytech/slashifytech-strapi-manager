@@ -738,6 +738,35 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiNavServicesItemNavServicesItem
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'nav_services_items';
+  info: {
+    displayName: 'Nav Services Items';
+    pluralName: 'nav-services-items';
+    singularName: 'nav-services-item';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    data: Schema.Attribute.JSON;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::nav-services-item.nav-services-item'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiProjectProject extends Struct.CollectionTypeSchema {
   collectionName: 'projects';
   info: {
@@ -1348,6 +1377,7 @@ declare module '@strapi/strapi' {
       'api::category.category': ApiCategoryCategory;
       'api::footer.footer': ApiFooterFooter;
       'api::global.global': ApiGlobalGlobal;
+      'api::nav-services-item.nav-services-item': ApiNavServicesItemNavServicesItem;
       'api::project.project': ApiProjectProject;
       'api::service.service': ApiServiceService;
       'api::sub-service.sub-service': ApiSubServiceSubService;
